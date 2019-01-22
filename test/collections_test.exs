@@ -15,7 +15,12 @@ defmodule Collections.AlgorithmsTest do
   test "check it works" do
     assert Collections.Algorithms.add(12, 2) == {:ok, 14}
   end
+
+  test"check list works" do
+    assert Collections.Algorithms.list([1, 2, 3]) === {:ok, [1, 2, 3]}
+  end
 end
+
 
 defmodule Collections.DatatypesTest do
   use ExUnit.Case
