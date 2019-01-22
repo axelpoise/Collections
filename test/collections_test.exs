@@ -16,8 +16,20 @@ defmodule Collections.AlgorithmsTest do
     assert Collections.Algorithms.add(12, 2) == {:ok, 14}
   end
 
-  test"check list works" do
-    assert Collections.Algorithms.list([1, 2, 3]) === {:ok, [1, 2, 3]}
+  test "check list works" do
+    assert Collections.Algorithms.list([1, 2, 3]) == {:ok, [1, 2, 3]}
+  end
+
+  test "buble sort" do
+    assert Collections.Algorithms.bubble_sort([3,1,2]) == {:ok, [1, 2, 3]}
+  end
+
+  test "insertion sort" do
+    assert Collections.Algorithms.insertion_sort([3,1,2]) == {:ok, [1, 2, 3]}
+  end
+
+  test "selection sort" do
+    assert Collections.Algorithms.selection_sort([3,1,2]) == {:ok, [1, 2, 3]}
   end
 end
 

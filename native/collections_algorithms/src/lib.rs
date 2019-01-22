@@ -17,7 +17,10 @@ rustler_export_nifs! {
     "Elixir.Collections.Algorithms",
     [
         ("add", 2, add),
-        ("list", 1, list)
+        ("list", 1, list),
+        ("bubble_sort", 1, bubble_sort),
+        ("insertion_sort", 1, insertion_sort),
+        ("selection_sort", 1, selection_sort)
     ],
     None
 }
@@ -41,32 +44,56 @@ fn list<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
     }
 }
 
-fn algorithms_list<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
+fn bubble_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
     let iter: NifListIterator = args[0].decode()?;
     let res: NifResult<Vec<i64>> = iter
         .map(|x : NifTerm| x.decode::<i64>())
         .collect();
 
-    let sort_type: String = args[1].decode()?;
-
     match res {
         Ok(result) => {
-            match sort_type {
-                String("bubble") => {
-                    Ok((atoms::ok(), bubble_sort(result)).encode(env))
-                }
-            }
-            Ok((atoms::ok(), result).encode(env))
+
+            Ok((atoms::ok(), alg_bubble_sort(result)).encode(env))
         },
         Err(err) => Err(err)
     }
 }
 
-fn bubble_sort(arr: Vec<i64>) ->  Vec<i64> {
+
+fn insertion_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
+    let iter: NifListIterator = args[0].decode()?;
+    let res: NifResult<Vec<i64>> = iter
+        .map(|x : NifTerm| x.decode::<i64>())
+        .collect();
+
+    match res {
+        Ok(result) => {
+
+            Ok((atoms::ok(), alg_insertion_sort(result)).encode(env))
+        },
+        Err(err) => Err(err)
+    }
+}
+
+fn selection_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
+    let iter: NifListIterator = args[0].decode()?;
+    let res: NifResult<Vec<i64>> = iter
+        .map(|x : NifTerm| x.decode::<i64>())
+        .collect();
+
+    match res {
+        Ok(result) => {
+
+            Ok((atoms::ok(), alg_selection_sort(result)).encode(env))
+        },
+        Err(err) => Err(err)
+    }
+}
+fn alg_bubble_sort(arr: Vec<i64>) ->  Vec<i64> {
     let mut xs: Vec<i64> = arr.clone();
     loop {
         let mut swap: bool = false;
-        for i in 0..arr.len()-2 {
+        for i in 0..arr.len()-1 {
             if xs[i] > xs[i+1] {
                 swap = true;
                 let t= xs[i+1];
@@ -79,7 +106,7 @@ fn bubble_sort(arr: Vec<i64>) ->  Vec<i64> {
     }
     return xs;
 }
-fn insertion_sort(arr: Vec<i64>) ->  Vec<i64> {
+fn alg_insertion_sort(arr: Vec<i64>) ->  Vec<i64> {
     let mut xs: Vec<i64> = arr.clone();
     let mut i = 1;
     while i < arr.len() {
@@ -96,13 +123,13 @@ fn insertion_sort(arr: Vec<i64>) ->  Vec<i64> {
     return xs;
 
 }
-fn selection_sort(arr: Vec<i64>) ->  Vec<i64> {
+fn alg_selection_sort(arr: Vec<i64>) ->  Vec<i64> {
     let mut xs: Vec<i64> = arr.clone();
-    let mut ys: Vec<i64>;
+    let mut ys: Vec<i64> = [].to_vec();
     loop {
         let mut t = xs[0];
         let mut j = 0;
-        for i in 1..xs.len() - 1 {
+        for i in 1..xs.len()  {
             if xs[i] < xs[i-1] {
                 t = xs[i];
                 j = i;

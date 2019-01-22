@@ -23,6 +23,9 @@ defmodule Collections.Algorithms do
   # When your NIF is loaded, it will override this function.
   def add(_a, _b), do: :erlang.nif_error(:nif_not_loaded)
   def list(_a), do: :erlang.nif_error(:nif_not_loaded)
+  def bubble_sort(_a), do: :erlang.nif_error(:nif_not_loaded)
+  def insertion_sort(_a), do: :erlang.nif_error(:nif_not_loaded)
+  def selection_sort(_a), do: :erlang.nif_error(:nif_not_loaded)
 end
 
 
