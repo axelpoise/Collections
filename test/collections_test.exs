@@ -31,6 +31,10 @@ defmodule Collections.AlgorithmsTest do
   test "selection sort" do
     assert Collections.Algorithms.selection_sort([3,1,2]) == {:ok, [1, 2, 3]}
   end
+
+  test "shell sort" do
+    assert Collections.Algorithms.shell_sort([3,1,2]) == {:ok, [1, 2, 3]}
+  end
 end
 
 

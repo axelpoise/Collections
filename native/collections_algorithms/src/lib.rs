@@ -173,10 +173,9 @@ fn alg_shell_sort(arr: Vec<i64>) -> Vec<i64> {
     }//Pratt, 1971
     gaps.reverse();
     for gap in gaps {
-        let mut i : usize;
-        for i in gap..xs.len() {
-            let t = xs[i];
-            let mut j : usize = i;
+        for _i in gap..xs.len() {
+            let t = xs[_i];
+            let mut j : usize = _i;
             while j >= gap && xs[j-gap] > t {
                 xs[j] = xs[j - gap];
                 j -= gap;
