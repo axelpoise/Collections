@@ -20,7 +20,8 @@ rustler_export_nifs! {
         ("list", 1, list),
         ("bubble_sort", 1, bubble_sort),
         ("insertion_sort", 1, insertion_sort),
-        ("selection_sort", 1, selection_sort)
+        ("selection_sort", 1, selection_sort),
+        ("shell_sort", 1, shell_sort)
     ],
     None
 }
@@ -89,6 +90,22 @@ fn selection_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTer
         Err(err) => Err(err)
     }
 }
+
+fn shell_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
+    let iter: NifListIterator = args[0].decode()?;
+    let res: NifResult<Vec<i64>> = iter
+        .map(|x : NifTerm| x.decode::<i64>())
+        .collect();
+
+    match res {
+        Ok(result) => {
+
+            Ok((atoms::ok(), alg_shell_sort(result)).encode(env))
+        },
+        Err(err) => Err(err)
+    }
+}
+
 fn alg_bubble_sort(arr: Vec<i64>) ->  Vec<i64> {
     let mut xs: Vec<i64> = arr.clone();
     loop {
@@ -144,3 +161,27 @@ fn alg_selection_sort(arr: Vec<i64>) ->  Vec<i64> {
     return ys;
 }
 
+fn alg_shell_sort(arr: Vec<i64>) -> Vec<i64> {
+    let mut xs: Vec<i64> = arr.clone();
+    let mut gaps: Vec<usize> = [].to_vec();
+    let mut g=0;
+    let mut k = 1;
+    while g < xs.len()/3 {
+        g = ((3^k - 1)/2);
+        gaps.push(g);
+        k += 1;
+    }//Pratt, 1971
+    gaps.reverse();
+    for gap in gaps {
+        let mut i : usize;
+        for i in gap..xs.len() {
+            let t = xs[i];
+            let mut j : usize = i;
+            while j >= gap && xs[j-gap] > t {
+                xs[j] = xs[j - gap];
+                j -= gap;
+            }
+        }
+    }
+    return xs;
+}
