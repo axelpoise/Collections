@@ -27,6 +27,7 @@ defmodule Collections.Algorithms do
   def insertion_sort(_a), do: :erlang.nif_error(:nif_not_loaded)
   def selection_sort(_a), do: :erlang.nif_error(:nif_not_loaded)
   def shell_sort(_a), do: :erlang.nif_error(:nif_not_loaded)
+  def quick_sort(_a), do: :erlang.nif_error(:nif_not_loaded)
 end
 
 
