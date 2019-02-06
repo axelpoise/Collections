@@ -25,43 +25,80 @@ pub fn quick_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTer
     }
 }
 
+fn _partition(high: usize, low: usize, xs: &mut Vec<i64>) -> usize {
+    let pivot = xs[(low + high) / 2];
+
+    let mut i = low;
+    let mut j = high;
+
+        while xs[i] < pivot {
+            i = i + 1;
+        }
+        while xs[j] > pivot {
+            j = j - 1;
+        }
+
+        if i >= j {
+            return j;
+        }
+
+        xs.swap(i, j);
+
+
+    return j;
+}
+
+struct Mem<usize> {
+    high: usize,
+    low: usize,
+    pivot: usize,
+}
+
 fn alg_quick_sort(arr: Vec<i64>) -> Vec<i64> {
     let mut xs: Vec<i64> = arr.clone();
 
+    let high = xs.len() - 1;
+    let low = 0;
+    let mut ps: Vec<Mem<usize>> = Vec::new();
 
-    fn sort(high: usize, low: usize) {
-        if low < high {
-            let p = partition(high, low);
-            sort(high, p);
-            sort(high + 1, low);
+    ps.push(Mem {
+        high,
+        low,
+        pivot: _partition(high, low, &mut xs),
+    });
+    loop {
+        let p: Option<Mem<usize>> = ps.pop();
+
+        if p.is_none() {
+            return xs;
+        }
+        let next = p.unwrap();
+
+        if next.low < next.pivot {
+            let mem1 = Mem {
+                high: next.pivot,
+                low: next.low,
+                pivot: _partition(next.pivot, next.low, &mut xs),
+            };
+            ps.push(mem1);
+        }
+
+        if next.pivot + 1 < next.high {
+            let mem2 = Mem {
+                high: next.high,
+                low: next.pivot + 1,
+                pivot: _partition(next.high, next.pivot + 1, &mut xs),
+            };
+            ps.push(mem2);
         }
     }
-
-    fn partition(high: usize, low: usize) -> usize {
-        let pivot = |xs|[(low + high) / 2];
-        let mut i = low - 1;
-        let mut j = high + 1;
-        loop {
-            if |xs|[i] < pivot {
-                i += i;
-            }
-            if |xs|[j] > pivot {
-                j -= j;
-            }
-            if i >= j {
-                return j;
-            }
-            swap(i, j)
-        }
-    }
-
-    fn swap(i: usize, j: usize) {
-        let t1 = |xs|[i];
-        let t2 = |xs|[j];
-        xs[i] = t2;
-        xs[j] = t1;
-    }
-
-    sort(0, xs.len() - 1);
-    xs
 }
+
+
+#[test]
+fn testing () {
+    let p = _partition(2, 0, &mut [3,1,2].to_vec());
+    println!("{}", p);
+}
+
+

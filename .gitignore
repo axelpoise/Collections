@@ -27,3 +27,6 @@ collections.iml
 .DS_Store
 
 /priv/native/
+
+
+native/collections_algorithms/target/
