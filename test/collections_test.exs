@@ -21,23 +21,23 @@ defmodule Collections.AlgorithmsTest do
   end
 
   test "buble sort" do
-    assert Collections.Algorithms.bubble_sort([3,1,2]) == {:ok, [1, 2, 3]}
+    assert Collections.Algorithms.bubble_sort([3, 1, 2]) == {:ok, [1, 2, 3]}
   end
 
   test "insertion sort" do
-    assert Collections.Algorithms.insertion_sort([3,1,2]) == {:ok, [1, 2, 3]}
+    assert Collections.Algorithms.insertion_sort([3, 1, 2]) == {:ok, [1, 2, 3]}
   end
 
   test "selection sort" do
-    assert Collections.Algorithms.selection_sort([3,1,2]) == {:ok, [1, 2, 3]}
+    assert Collections.Algorithms.selection_sort([3, 1, 2]) == {:ok, [1, 2, 3]}
   end
 
   test "shell sort" do
-    assert Collections.Algorithms.shell_sort([3,1,2]) == {:ok, [1, 2, 3]}
+    assert Collections.Algorithms.shell_sort([3, 1, 2]) == {:ok, [1, 2, 3]}
   end
 
   test "quick sort" do
-    assert Collections.Algorithms.quick_sort([3,1,2]) == {:ok, [1, 2, 3]}
+    assert Collections.Algorithms.quick_sort([3, 1, 1]) == {:ok, [1, 1, 3]}
   end
 end
 

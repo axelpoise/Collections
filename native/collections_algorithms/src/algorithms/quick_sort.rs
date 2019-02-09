@@ -26,26 +26,38 @@ pub fn quick_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTer
 }
 
 fn _partition(high: usize, low: usize, xs: &mut Vec<i64>) -> usize {
-    let pivot = xs[(low + high) / 2];
+    let p = (low + high) / 2;
+    if p == low {
+        if xs[high]<xs[low] {
+            xs.swap(high, low)
+        }
+        return p;
+    }
 
-    let mut i = low;
-    let mut j = high;
+
+    let pivot = xs[p];
+    xs.swap(high, p);
+
+
+    loop {
+        let mut i = low;
+        let mut j = high - 1;
 
         while xs[i] < pivot {
             i = i + 1;
         }
-        while xs[j] > pivot {
+        while  j > 0 && xs[j] > pivot {
             j = j - 1;
         }
 
         if i >= j {
+            xs.swap(j, high);
             return j;
         }
 
         xs.swap(i, j);
 
-
-    return j;
+    }
 }
 
 struct Mem<usize> {
@@ -72,22 +84,24 @@ fn alg_quick_sort(arr: Vec<i64>) -> Vec<i64> {
         if p.is_none() {
             return xs;
         }
-        let next = p.unwrap();
 
-        if next.low < next.pivot {
+        let next = p.unwrap();
+        if next.high > next.low {
+            let piv1 = _partition(next.pivot, next.low, &mut xs);
+            let piv2 = _partition(next.high, next.pivot + 1, &mut xs);
+
             let mem1 = Mem {
                 high: next.pivot,
                 low: next.low,
-                pivot: _partition(next.pivot, next.low, &mut xs),
+                pivot: piv1,
             };
             ps.push(mem1);
-        }
 
-        if next.pivot + 1 < next.high {
+
             let mem2 = Mem {
                 high: next.high,
                 low: next.pivot + 1,
-                pivot: _partition(next.high, next.pivot + 1, &mut xs),
+                pivot: piv2,
             };
             ps.push(mem2);
         }
@@ -96,9 +110,11 @@ fn alg_quick_sort(arr: Vec<i64>) -> Vec<i64> {
 
 
 #[test]
-fn testing () {
-    let p = _partition(2, 0, &mut [3,1,2].to_vec());
+fn testing() {
+    let mut xs = [1,2,1].to_vec();
+    let p = _partition(2, 1, &mut xs);
     println!("{}", p);
+    println!("{:?}", xs);
 }
 
 
