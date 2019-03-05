@@ -39,6 +39,10 @@ defmodule Collections.AlgorithmsTest do
   test "quick sort" do
     assert Collections.Algorithms.quick_sort([3, 1, 1]) == {:ok, [1, 1, 3]}
   end
+
+  test "merge sort" do
+    assert Collections.Algorithms.merge_sort([3, 1, 2]) == {:ok, [1, 2, 3]}
+  end
 end
 
 
