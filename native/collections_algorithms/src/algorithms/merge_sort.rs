@@ -30,19 +30,19 @@ fn alg_merge_sort(arr: Vec<i64>) -> Vec<i64> {
     if xs.len() < 2 {
         return xs;
     }
-
-    let left = xs.len() / 2;
-    let right = left + 1;
     let length = xs.len() - 1;
-    let mut ys = &mut xs[0..left].to_vec();
-    let mut zs = &mut xs[right..length].to_vec();
+    let left = length / 2;
+    let right = left + 1;
+
+    let mut ys = &mut xs[0..left + 1].to_vec();
+    let mut zs = &mut xs[right..length + 1].to_vec();
 
 
     sort(&mut zs);
     sort(&mut ys);
     merge(&mut xs, &mut ys.clone(), &mut zs.clone());
 
-    return xs.clone();
+    return xs;
 }
 
 fn sort(xs: &mut Vec<i64>) {
@@ -50,10 +50,10 @@ fn sort(xs: &mut Vec<i64>) {
         xs;
     } else {
         let length = xs.len() - 1;
-        let left = xs.len() / 2;
+        let left = length / 2;
         let right = left + 1;
-        let mut ys = &mut xs[0..left].to_vec();
-        let mut zs = &mut xs[right..length].to_vec();
+        let mut ys = &mut xs[0..left + 1].to_vec();
+        let mut zs = &mut xs[right..length + 1].to_vec();
         sort(&mut zs);
         sort(&mut ys);
         merge(xs, &mut ys.clone(), &mut zs.clone());
@@ -69,19 +69,19 @@ fn merge(xs: &mut Vec<i64>, ys: &mut Vec<i64>, zs: &mut Vec<i64>) {
             if i > ys.len() - 1 {
                 break;
             } else {
-                while i < ys.len() - 1 {
+                while i < ys.len() {
                     xs[j] = ys[i];
                     j = j + 1;
                     i = i + 1;
                 }
-                break;
+               break;
             }
         }
         if i > ys.len() - 1 {
             if k > zs.len() - 1 {
                 break; // Unnecessary
             } else {
-                while k < zs.len() - 1 {
+                while k < zs.len() {
                     xs[j] = zs[k];
                     j = j + 1;
                     k = k + 1;
@@ -103,9 +103,9 @@ fn merge(xs: &mut Vec<i64>, ys: &mut Vec<i64>, zs: &mut Vec<i64>) {
 
 #[test]
 fn test_merge() {
-    let mut arr1 = [1, 2].to_vec();
-    let mut arr2 = [2, 3].to_vec();
-    let mut arr3 = [2,2,3,1].to_vec();
+    let mut arr1 = [1].to_vec();
+    let mut arr2 = [2].to_vec();
+    let mut arr3 = [2,1].to_vec();
 
     merge(&mut arr3, &mut arr1, &mut arr2);
     println!("{:?}", arr3);
@@ -113,4 +113,9 @@ fn test_merge() {
 }
 
 #[test]
-fn test_sort() {}
+fn test_sort() {
+    let mut arr = [3,2].to_vec();
+
+    sort(&mut arr);
+    println!("sorting merge: {:?}", arr)
+}
