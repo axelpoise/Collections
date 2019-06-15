@@ -43,6 +43,10 @@ defmodule Collections.AlgorithmsTest do
   test "merge sort" do
     assert Collections.Algorithms.merge_sort([3, 1, 2]) == {:ok, [1,  2, 3]}
   end
+
+  test "heap sort" do
+    assert Collections.Algorithms.heap_sort([3,1,2]) == {:ok, [1,  2, 3]}
+  end
 end
 
 

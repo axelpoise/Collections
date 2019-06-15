@@ -25,7 +25,8 @@ rustler_export_nifs! {
         ("selection_sort", 1, selection_sort),
         ("shell_sort", 1, shell_sort),
         ("quick_sort", 1, quick_sort),
-        ("merge_sort", 1, merge_sort)
+        ("merge_sort", 1, merge_sort),
+        ("heap_sort", 1, heap_sort)
     ],
     None
 }
@@ -72,4 +73,8 @@ fn quick_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a
 
 fn merge_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
     algorithms::merge_sort(env, args)
+}
+
+fn heap_sort<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTerm<'a>> {
+    algorithms::heap_sort(env, args)
 }
