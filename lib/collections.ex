@@ -36,6 +36,16 @@ end
 defmodule Collections.Datatypes do
   use Rustler, otp_app: :collections, crate: "collections_datatypes"
 
+  defmodule Heap do
+    defstruct = [:max, :array, :new]
+  end
+
   # When your NIF is loaded, it will override this function.
   def add(_a, _b), do: :erlang.nif_error(:nif_not_loaded)
+  def create_heap(_array), do: :erlang.nif_error(:nif_not_loaded)
 end
+
+
+
+
+

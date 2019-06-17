@@ -57,4 +57,22 @@ defmodule Collections.DatatypesTest do
   test "check it works" do
     assert Collections.Datatypes.add(12, 2) == {:ok, 14}
   end
+
+
+
+
+  test "create heap" do
+    assert Collections.Datatypes.create_heap([1,2,3]) == {:ok, 1}
+  end
+  test "next from heap" do
+
+  end
+
+  test "add to heap and return new value"  do
+
+  end
+
+  test "add to heap and return old value" do
+
+  end
 end
