@@ -32,10 +32,11 @@ pub fn create_heap<'a>(env: NifEnv<'a>, args: &[NifTerm<'a>]) -> NifResult<NifTe
     heap.push(1);
     heap.push(2);
 
+
     match res {
     Ok(result) => {
 
-        Ok((atoms::ok(), heap ).encode(env))
+        Ok((atoms::ok(), heap.data ).encode(env))
     },
     Err(err) => Err(err)
     }
