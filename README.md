@@ -1,6 +1,6 @@
 # Collections
 
-**TODO: Add description**
+Playing with rustler, algorithms and datatypes. Testing with Elixir
 
 ## Installation
 
