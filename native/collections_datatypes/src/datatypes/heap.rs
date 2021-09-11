@@ -1,7 +1,8 @@
 use rustler::{NifEnv, NifError, NifTerm, NifResult, NifEncoder};
 use rustler::types::list::NifListIterator;
 use std::collections::BinaryHeap;
-use rustler::NifEncoder;
+
+
 mod atoms {
     rustler_atoms! {
         atom ok;
@@ -15,11 +16,11 @@ pub fn heapify() {
 
 }
 
-pub fn add_to_heap(arr:Vec<i64>)  {
+pub fn push_to_heap(arr:Vec<i64>)  {
 
 }
 
-pub fn next_from_heap() -> i64 {
+pub fn pop_from_heap() -> i64 {
     return 0;
 }
 
